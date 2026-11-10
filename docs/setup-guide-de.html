@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ulanzi D100H für Bitfocus Companion vorbereiten</title>
+    <style>
+      :root {
+        --bg: #f9dce8;
+        --text: #a04a72;
+        --flash: #c24b82;
+        --card: rgba(255, 255, 255, 0.55);
+        --card-border: rgba(160, 74, 114, 0.18);
+        --muted: rgba(160, 74, 114, 0.72);
+        --code-bg: rgba(194, 75, 130, 0.10);
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+      }
+      html[data-theme="dark"] {
+        --bg: #160a13;
+        --text: #e5c9f2;
+        --flash: #f6e7fa;
+        --card: rgba(229, 201, 242, 0.06);
+        --card-border: rgba(229, 201, 242, 0.18);
+        --muted: rgba(229, 201, 242, 0.72);
+        --code-bg: rgba(246, 231, 250, 0.10);
+      }
+      @media (prefers-color-scheme: dark) {
+        html:not([data-theme="light"]) {
+          --bg: #160a13;
+          --text: #e5c9f2;
+          --flash: #f6e7fa;
+          --card: rgba(229, 201, 242, 0.06);
+          --card-border: rgba(229, 201, 242, 0.18);
+          --muted: rgba(229, 201, 242, 0.72);
+          --code-bg: rgba(246, 231, 250, 0.10);
+        }
+      }
+      body {
+        margin: 0;
+        padding: 2rem 1rem 4rem;
+        background: var(--bg);
+        color: var(--text);
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+      .wrap { max-width: 780px; margin: 0 auto; }
+      header { position: relative; margin-bottom: 2rem; }
+      h1 { margin: 0 0 0.4rem; font-size: 1.7rem; letter-spacing: 0.01em; }
+      .subtitle { margin: 0; color: var(--muted); font-size: 1rem; }
+      #theme-toggle {
+        position: absolute; top: 0; right: 0;
+        background: var(--card); border: 1px solid var(--card-border);
+        color: var(--text); border-radius: 999px;
+        padding: 0.35rem 0.9rem; font-size: 0.8rem; cursor: pointer;
+      }
+      #theme-toggle:hover { border-color: var(--flash); }
+      .card {
+        background: var(--card); border: 1px solid var(--card-border);
+        border-radius: 14px; padding: 1.1rem 1.3rem; margin: 1.1rem 0;
+      }
+      h2 {
+        font-size: 1.15rem; margin: 1.8rem 0 0.6rem;
+        display: flex; align-items: center; gap: 0.5rem;
+      }
+      h2 .num {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 1.7rem; height: 1.7rem; border-radius: 50%;
+        border: 2px solid var(--flash); font-size: 0.9rem; flex: none;
+      }
+      h3 { font-size: 1rem; margin: 1.4rem 0 0.4rem; }
+      p, li { line-height: 1.6; }
+      ul { padding-left: 1.2rem; margin: 0.5rem 0; }
+      code {
+        background: var(--code-bg); border-radius: 6px;
+        padding: 0.1rem 0.4rem; font-size: 0.9em;
+      }
+      .warn {
+        border-left: 4px solid var(--flash);
+        background: var(--card); border-radius: 10px;
+        padding: 0.8rem 1.1rem; margin: 1rem 0;
+      }
+      .warn strong { color: var(--flash); }
+      table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.95rem; }
+      th, td { text-align: left; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--card-border); vertical-align: top; }
+      th { color: var(--muted); font-weight: 600; }
+      a { color: inherit; text-underline-offset: 3px; }
+      .checklist { list-style: none; padding-left: 0; }
+      .checklist li { padding-left: 1.7rem; position: relative; margin: 0.35rem 0; }
+      .checklist li::before {
+        content: "✓"; position: absolute; left: 0;
+        color: var(--flash); font-weight: 700;
+      }
+      .sources { font-size: 0.88rem; color: var(--muted); }
+      .sources li { margin: 0.3rem 0; }
+      footer { margin-top: 2.5rem; color: var(--muted); font-size: 0.85rem; text-align: center; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>Ulanzi D100H für Bitfocus Companion vorbereiten</h1>
+        <p class="subtitle">Schritt 1 des Projekts: OSC-Remote für Bitfocus Companion mit Anbindung des Ulanzi Dials</p>
+        <button id="theme-toggle" type="button">Design: Auto</button>
+      </header>
+
+      <div class="card">
+        <p><strong>Die wichtigsten Erkenntnisse vorab:</strong></p>
+        <ul>
+          <li>Das D100H ist ein reines <strong>Bluetooth-Gerät</strong>. Der USB-C-Anschluss dient ausschließlich zum Laden, er überträgt keine Daten.</li>
+          <li>Eigene Belegungen funktionieren nur im <strong>Online-Modus</strong>, das heißt, Ulanzi Studio muss auf dem Rechner laufen. Ohne Studio fällt das Dial auf Lautstärke, Medien und Copy-Paste-Tasten zurück.</li>
+          <li>Es existiert bereits ein <strong>Community-Plugin</strong> (com.ulanzi.companion, Version 4), das das D100H direkt an Bitfocus Companion anbindet, inklusive Drehgeber-Unterstützung.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <p><strong>Projektentscheidungen (November 2026, von Isabella bestätigt):</strong></p>
+        <ul>
+          <li>macOS zuerst, Linux als zweites wichtiges Ziel.</li>
+          <li>Ohne die offizielle Ulanzi-Studio-App; Bitfocus Companion bleibt die Schaltzentrale.</li>
+          <li>Empfohlene Architektur: eine kleine native Brücke, die die D100H-Eingaben liest und an Companion weiterleitet (macOS: Swift/IOHIDManager nach dem toml-sys-Muster; Linux: hamdial oder Python nach rGnng). Auf macOS sind alle sieben Tasten und der Drehgeber per HID lesbar, anders als unter Windows, wo die vier Keyboard-Page-Tasten gesperrt sind.</li>
+          <li>Gute Nachricht: Die Companion-Fernsteuerungs-API unterstützt Drehbefehle direkt (LOCATION mit ROTATE-LEFT beziehungsweise ROTATE-RIGHT). Der Brücken-Prototyp im Projekt-Repository seren-a/bitf.companion-ulanzi.dial nutzt diese; eine Surface-Anbindung bleibt später allenfalls für LED-Feedback interessant.</li>
+        </ul>
+      </div>
+
+      <h2><span class="num">✓</span>Was Sie benötigen</h2>
+      <div class="card">
+        <ul class="checklist">
+          <li>Ulanzi D100H, geladen (Ladezeit ca. 2,5 Stunden)</li>
+          <li>Rechner mit Bluetooth, Windows 10 oder höher bzw. macOS 11 oder höher</li>
+          <li>Ulanzi Studio (aktuelle Version, kompatibel mit dem D100H)</li>
+          <li>Bitfocus Companion ab Version 4.3 (wegen des Surface-/Rotary-Systems empfohlen; die Module-Entwicklung für Ihr OSC-Remote setzt ohnehin eine aktuelle Version voraus)</li>
+          <li>Das Companion-Plugin für Ulanzi Studio aus dem Ulanzi-Community-Forum (Datei <code>com.ulanzi.companion_v4.ulanziPlugin.zip</code>)</li>
+        </ul>
+      </div>
+
+      <h2><span class="num">1</span>Ulanzi Studio installieren</h2>
+      <div class="card">
+        <p>Laden Sie Ulanzi Studio von der offiziellen Ulanzi-Downloadseite herunter (Suche nach <em>Ulanzi Studio download</em> auf ulanzi.com, Abschnitt Downloads beziehungsweise Ulanzi App) und installieren Sie die Anwendung. Ulanzi Studio läuft unter Windows 10 oder höher und macOS.</p>
+      </div>
+
+      <h2><span class="num">2</span>D100H per Bluetooth koppeln</h2>
+      <div class="card">
+        <ul>
+          <li>Schalten Sie das D100H ein und bringen Sie es in den Pairing-Modus (Statusleuchte blinkt).</li>
+          <li>Koppeln Sie es in Ulanzi Studio über die Geräteverwaltung. Der Bluetooth-Name lautet <code>Ulanzi Dial</code>.</li>
+          <li>Das D100H kann sich mit bis zu drei Geräten paaren; die Statusleuchte zeigt das aktive Gerät an.</li>
+        </ul>
+        <div class="warn"><strong>Wichtig:</strong> Am Rechner meldet sich das Gerät als <code>KEHWIN / Dial_Lite</code>, nicht unter dem Namen Ulanzi. Falls Sie es später in anderen Tools (beispielsweise MIDI-Routinen) suchen, suchen Sie nach dieser Kennung.</div>
+      </div>
+
+      <h2><span class="num">3</span>Online-Modus sicherstellen</h2>
+      <div class="card">
+        <p>Sobald Ulanzi Studio läuft und das Dial verbunden ist, arbeitet das D100H im Online-Modus. Nur in diesem Modus greifen die Plugin-Zuweisungen. Merken Sie sich für den Bühnen- oder Studioalltag: <strong>Ulanzi Studio muss im Hintergrund laufen</strong>, damit das Dial Companion-Buttons steuert. Ein gespeichertes Custom-Layout direkt auf dem Gerät gibt es derzeit nicht.</p>
+      </div>
+
+      <h2><span class="num">4</span>Companion-Plugin in Ulanzi Studio importieren</h2>
+      <div class="card">
+        <div class="warn"><strong>Rückfalloption:</strong> Da Sie auf Ulanzi Studio verzichten möchten, ist dieser Weg nur noch relevant, falls die native Brücke (siehe Projektentscheidungen oben) nicht zustande kommt oder Sie schnell einen Proof of Concept benötigen.</div>
+        <ul>
+          <li>Laden Sie den Plugin-Anhang <code>com.ulanzi.companion_v4.ulanziPlugin.zip</code> aus dem Beitrag <em>【New Plugin】D100H - I updated the MIDI, vMix, and Companion plugins</em> im Ulanzi-Studio-Forum (Bereich D200X/D200H/D200 und D100H, Beitrag von instantreplaygo) herunter. Dafür ist eine kostenlose Forumsregistrierung erforderlich.</li>
+          <li>Öffnen Sie in Ulanzi Studio die Plugin-Verwaltung und importieren Sie die ZIP-Datei (<code>.ulanziPlugin</code>).</li>
+          <li>Ziehen Sie anschließend die Companion-Aktionen auf die Tasten und auf den Drehgeber Ihres D100H-Layouts.</li>
+          <li>Die erweiterten Aktionen <em>Drücken</em>, <em>Drücken und links drehen</em> sowie <em>Drücken und rechts drehen</em> werden nicht im Plugin selbst konfiguriert, sondern in Companion über die <strong>Rotary-Option</strong> des jeweiligen Buttons.</li>
+        </ul>
+      </div>
+
+      <h2><span class="num">5</span>Companion vorbereiten</h2>
+      <div class="card">
+        <ul>
+          <li>Installieren Sie Bitfocus Companion in einer aktuellen Version und notieren Sie die IP-Adresse sowie die API-Ports der Companion-Instanz (UDP <code>51235</code>, TCP <code>51234</code>).</li>
+          <li>Tragen Sie diese Werte im Property Inspector des Companion-Plugins in Ulanzi Studio ein, sodass das Plugin Companion erreichen kann.</li>
+          <li>Legen Sie in Companion die Buttons an, die das Dial steuern soll, und aktivieren Sie dort jeweils die Rotary-Option, damit Drehbewegungen (links, rechts, Drücken und Drehen) als eigene Aktionsschritte ausführbar sind.</li>
+        </ul>
+      </div>
+
+      <h2><span class="num">6</span>Funktionstest</h2>
+      <div class="card">
+        <p>Testen Sie in dieser Reihenfolge: kurzer Tastendruck, langer Tastendruck, Drehen des Knopfes, Drücken des Knopfes, Drücken und Drehen kombiniert. Wenn alle fünf Eingaben in Companion ankommen, ist das Dial bereit für Ihr OSC-Remote-Modul.</p>
+      </div>
+
+      <h2>Fehlerbehebung</h2>
+      <div class="card">
+        <table>
+          <tr><th>Symptom</th><th>Lösung</th></tr>
+          <tr><td>Dial verbindet sich nicht mit Ulanzi Studio</td><td>Bluetooth am Rechner prüfen, Pairing-Modus erzwingen (Leuchte blinkt), Dial und Studio neu starten.</td></tr>
+          <tr><td>Tasten reagieren, aber mit Standardfunktionen (Lautstärke, Medien)</td><td>Das Dial ist im Offline-Modus. Ulanzi Studio starten und Verbindung prüfen.</td></tr>
+          <tr><td>Plugin lässt sich nicht importieren</td><td>Ulanzi Studio auf die neueste Version aktualisieren; die Plugin-Struktur folgt dem UlanziDeck-SDK (Ordnerkonvention <code>com.ulanzi.{name}.ulanziPlugin</code>).</td></tr>
+          <tr><td>Companion erhält keine Signale</td><td>IP und TCP-Port im Plugin prüfen, Firewall prüfen, in Companion die API-Schnittstelle kontrollieren.</td></tr>
+          <tr><td>Dial verhält sich unerklärlich</td><td>Werkseinstellung: Gerät ausschalten, Knob und Geräteschalter gleichzeitig gedrückt halten, einschalten; danach neu koppeln.</td></tr>
+        </table>
+      </div>
+
+      <h2>Ausblick: Die nächsten Schritte des Projekts</h2>
+      <div class="card">
+        <p>Sobald das Dial in Companion ankommt, folgt Schritt 2, die Entwicklung Ihres OSC-Remote-Moduls nach der Bitfocus-Modulstruktur (package.json, companion/manifest.json, HELP.md, Modulklasse mit init, configUpdated, destroy sowie Actions, Feedbacks, Variablen und Presets). Das Dial triggert dann Companion-Buttons, deren Aktionen OSC-Befehle an Ihr Zielgerät senden.</p>
+        <p><strong>Zur MIDI-Route:</strong> Bitfocus stellt mit companion-surface-midi ein offizielles Surface-Modul für MIDI-Geräte bereit. Es befindet sich noch in einem frühen Stadium mit fest einprogrammierten Layouts (Launchpad, APC und andere); das D100H ist dort noch nicht enthalten. Für Ihr Dial ist die beschriebene Companion-Plugin-Route daher der gegenwärtig praktikable Weg. Sollten Sie später einen MIDI-Weg bevorzugen, könnte ein eigenes Gerätemapping ergänzt werden.</p>
+      </div>
+
+      <h2>Community-Repos im Überblick (bewertet)</h2>
+      <div class="card">
+        <table>
+          <tr><th>Repository</th><th>Plattform</th><th>Nutzen für dieses Projekt</th></tr>
+          <tr><td>brendanwelsh/ulanzi-d100h-homebrew</td><td>Windows, WebHID-Demo</td><td>Referenz schlechthin: HID-Protokoll, Studio-Verhalten, SDK-Stolperfallen; interaktiver Dial-Viewer.</td></tr>
+          <tr><td>bitboxx/ulanzi-d100h</td><td>macOS (Swift)</td><td>Entschlüsselt das TEA-verschlüsselte Vendor-BLE-Protokoll (GATT 0x1971, FD01/FD00) inklusive Schlüssel, Framing und Befehlssatz; Referenzclient ulanzi-ctl und Daemon ulanzid mit YAML-Konfiguration.</td></tr>
+          <tr><td>rGnng/UlanziD100HProtocol</td><td>Linux, macOS, ESP32 (Python)</td><td>Aktuellstes Protokoll-Repo (November 2026): Event-Mappings, Tests mit Fixtures, Python-Werkzeuge, bestätigtes kabelgebundenes USB-Protokoll; ideal für einen eigenen OSC-Bridge-Prototyp.</td></tr>
+          <tr><td>10on/ulanzi-d100h-light</td><td>macOS</td><td>Abfangen ohne Ulanzi Studio; vollständige HID-Report-Karte aller Tasten und des Drehgebers (nützliche Referenztabelle).</td></tr>
+          <tr><td>ftl/hamdial</td><td>Linux (Go)</td><td>Saubere Go-Bibliothek über hidraw mit CLI dialctl; nur relevant, falls Companion auf Linux läuft.</td></tr>
+          <tr><td>gunnoej5/dialtone</td><td>Ubuntu</td><td>JSON-Profile, compiliert zu input-remapper-Presets, GTK4-Editor; Linux-spezifisch.</td></tr>
+          <tr><td>toml-sys/d100h-screenstudio-mac</td><td>macOS</td><td>Wertvolles Architekturmuster: gerätegefilterte HID-Brücke über IOHIDManager, ohne Studio; Vorlage für einen eigenen Companion- beziehungsweise OSC-Bridge.</td></tr>
+          <tr><td>TimmySheep/ulanzidial-native</td><td>macOS</td><td>Ernstzunehmende Studio-Alternative: nativer Client, rund 1 MB statt 1 GB, etwa 37 MB RAM; 12 Slots, Gesten, Zweikombis, Layers, Shell-Befehle als Aktionen (damit wären Companion-API-Aufrufe per Kommandozeile möglich).</td></tr>
+          <tr><td>petitstrawberry/dial-studio</td><td>macOS</td><td>Alternative mit Seiten und Layern sowie Plugin-System (nativ und WebAssembly); ein eigenes Plugin könnte direkt OSC senden oder die Companion-API ansprechen.</td></tr>
+        </table>
+        <div class="warn"><strong>Interessanter Widerspruch:</strong> Das Homebrew-Repo bezeichnet USB-C als reine Ladebuchse. Die neueren Repos (bitboxx, rGnng, November 2026) dokumentieren jedoch ein bestätigtes kabelgebundenes USB-Protokoll. Bitte einmal am eigenen Gerät nachtesten: Wenn USB-Daten funktionieren, entfiele die Abhängigkeit vom Bluetooth-Empfang im Setup.</div>
+      </div>
+
+      <h2>Quellen</h2>
+      <div class="card sources">
+        <ul>
+          <li>Ulanzi-Community-Forum: Beitrag mit dem aktualisierten Companion-Plugin für das D100H (bbs.ulanzistudio.com, Bereich D200X/D200H/D200 und D100H)</li>
+          <li>brendanwelsh/ulanzi-d100h-homebrew auf GitHub: Reverse-Engineering-Notizen zum D100H (HID-Protokoll, KEHWIN/Dial_Lite, Online-Modus)</li>
+          <li>UlanziTechnology/UlanziDeckPlugin-SDK auf GitHub: offizielles Plugin-SDK für Ulanzi Studio</li>
+          <li>bitfocus/companion-surface-midi auf GitHub: offizielles MIDI-Surface-Modul für Companion</li>
+          <li>companion.free: Bitfocus-Companion-Dokumentation zur Modulentwicklung (Module Development 101)</li>
+          <li>Projekt-Repository: seren-a/bitf.companion-ulanzi.dial auf GitHub (Brücken-Prototyp, Protokolldokumentation, Architektur)</li>
+          <li>Offizielles D100H-Handbuch (manuals.plus): Pairing, Werkseinstellung, Spezifikationen</li>
+        </ul>
+      </div>
+
+      <footer>Anleitung für Isabella Forster · Schritt 1 des Projekts Companion-OSC-Remote mit Ulanzi D100H · Automatisch im passenden Farbschema (girly pink hell, girly dark dunkel)</footer>
+    </div>
+
+    <script>
+      (function () {
+        var modes = ["Auto", "Hell", "Dunkel"];
+        var idx = 0;
+        var btn = document.getElementById("theme-toggle");
+        var root = document.documentElement;
+        btn.addEventListener("click", function () {
+          idx = (idx + 1) % modes.length;
+          btn.textContent = "Design: " + modes[idx];
+          if (idx === 0) root.removeAttribute("data-theme");
+          else if (idx === 1) root.setAttribute("data-theme", "light");
+          else root.setAttribute("data-theme", "dark");
+        });
+      })();
+    </script>
+  </body>
+</html>

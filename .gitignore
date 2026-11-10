@@ -1,0 +1,4 @@
+.DS_Store
+d100h-bridge
+*.o
+build/

@@ -1,0 +1,15 @@
+{
+  "host": "127.0.0.1",
+  "port": 51235,
+  "invertKnob": false,
+  "buttons": {
+    "knob":      { "page": 1, "row": 1, "column": 1, "action": "rotary" },
+    "topPrev":   { "page": 1, "row": 1, "column": 2 },
+    "topPlay":   { "page": 1, "row": 1, "column": 3 },
+    "topNext":   { "page": 1, "row": 1, "column": 4 },
+    "sideCopy":  { "page": 1, "row": 2, "column": 2 },
+    "sidePaste": { "page": 1, "row": 2, "column": 3 },
+    "sideUndo":  { "page": 1, "row": 2, "column": 4 },
+    "sideRedo":  { "page": 1, "row": 2, "column": 5 }
+  }
+}
