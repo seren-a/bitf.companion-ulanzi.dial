@@ -6,6 +6,16 @@
 
 Prototype (macOS). The bridge turns every dial press and rotation into Bitfocus Companion remote-control commands, including real rotary actions on the knob. A Linux port is planned.
 
+## Branches („Subrepos“)
+
+This repo collects tools around the Ulanzi dial and Bitfocus Companion. Every project is its own branch, a sub-repo of its own. (Deutsch: Jedes Projekt ist ein eigener Branch.)
+
+> **Regel: Jedes Projekt ist ein eigener Branch, und nichts davon zieht zurück auf `main`.**
+> Projekt-Branches werden nicht in `main` gemergt, auch nicht per Pull Request. Weiterentwicklung
+> passiert nur im Branch des Projekts (Zwischenschritte gern in Unter-Branches, die dann in den
+> Projekt-Branch gehen). `main` ist die Übersicht. Ein neues Projekt bekommt einen neuen Branch
+> und hier eine Zeile.
+
 ## How it works
 
 ```
